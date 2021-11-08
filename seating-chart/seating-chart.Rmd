@@ -1,0 +1,60 @@
+---
+drake_cache: '.web'
+dependencies: 'dependencies'
+output:
+  html_tag:
+    filename: "index.html"
+    dirpath: "`r library(econR); . %//% 'docs'`"
+    object: "layout"
+---
+
+```{r, drake=F}
+library(econR)
+rstudioapi::initializeProject(. %//% 'your_foldername') # to create .Rproj
+```
+
+
+```{r makecondition}
+library(econR)
+library(htmltools)
+
+```
+
+## Dependencies
+
+```{r dependencies}
+dependencies <- {
+  econRdependencies <- econR::html_dependencies()
+  myDependencies <- htmltools::htmlDependency(
+    name="myown",
+    version="1.0.0",
+    src = c(file= . %//% "assets"),
+    script = "js/myscript.js",
+    stylesheet = "css/mystyle.css"
+  )
+  
+  tagList(
+    econRdependencies$jquery(),
+    econRdependencies$materialise(),
+    myDependencies
+  )
+}
+```
+
+## Body 
+
+
+```{r layout}
+div(class="row",
+    div(class="col s7 purple", style="height: 500px;"),
+    div(class="col s5 amber", style="height: 800px;")
+  )
+```
+
+
+
+
+## JS
+
+
+<!--JS end-->
